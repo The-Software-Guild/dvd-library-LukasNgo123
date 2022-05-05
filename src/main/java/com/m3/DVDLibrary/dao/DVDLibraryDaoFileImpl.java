@@ -40,8 +40,54 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao{
     }
 
     @Override
-    public DVD updateDVD(String title) throws DVDLibraryDaoException {
-        return null;
+    public DVD updateDVD(String title, int choice, String updateString) throws DVDLibraryDaoException {
+        loadDVDs();
+        boolean keepGoing = true;
+        int menuSelection = 0;
+        DVD dvd = dvds.get(title);
+        while (keepGoing){
+            menuSelection = choice;
+
+            switch (menuSelection){
+                case 2:
+                    dvd.setMpaa(updateString);
+                    dvds.put(title, dvd);
+                    keepGoing = false;
+                    break;
+                case 3:
+                    dvd.setDirectorsName(updateString);
+                    dvds.put(title, dvd);
+                    keepGoing = false;
+                    break;
+                case 4:
+                    dvd.setStudio(updateString);
+                    dvds.put(title, dvd);
+                    keepGoing = false;
+                    break;
+                case 5:
+                    dvd.setUserRating(updateString);
+                    dvds.put(title, dvd);
+                    keepGoing = false;
+                    break;
+                case 6:
+                    keepGoing = false;
+                    break;
+            }
+        }
+        writeDVDs();
+        return dvd;
+    }
+
+    @Override
+    public DVD updateDVD(String dvdTitle, int[] date) throws DVDLibraryDaoException {
+        loadDVDs();
+        boolean keepGoing = true;
+        int menuSelection = 0;
+        DVD dvd = dvds.get(dvdTitle);
+        dvd.setReleaseDate(LocalDate.of(date[0], date[1], date[2]));
+        dvds.put(dvdTitle, dvd);
+        writeDVDs();
+        return dvd;
     }
 
     private void loadDVDs() throws DVDLibraryDaoException {

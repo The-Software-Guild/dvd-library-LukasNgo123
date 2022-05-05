@@ -31,7 +31,7 @@ public class DVDLibraryController {
                         removeDVD();
                         break;
                     case 3:
-                        editDVD();
+                        editDVDGetChoice();
                         break;
                     case 4:
                         listAllDVDs();
@@ -65,8 +65,30 @@ public class DVDLibraryController {
         view.displayDVDList(dvdList);
     }
 
-    private void editDVD() {
-        System.out.println("not implemented yet");
+    private void editDVDGetChoice() throws DVDLibraryDaoException {
+        view.displayEditDVDBAnner();
+        String dvdTitle = view.getDVDTitleChoice();
+        int updateChoice = view.getDVDUpdateChoice();
+        if (updateChoice == 6){
+            view.displayEditCancelledBanner();
+        }else if(updateChoice == 1){
+            editDVDReleaseDate(dvdTitle);
+        }
+        else {
+            editDVDValue(dvdTitle, updateChoice);
+        }
+    }
+
+    private void editDVDValue(String dvdTitle, int updateChoice) throws DVDLibraryDaoException{
+        String updateValue = view.getDVDUpdateValue();
+        DVD dvd = dao.updateDVD(dvdTitle,updateChoice,updateValue);
+        view.displayEditResult(dvd);
+    }
+
+    private void editDVDReleaseDate(String dvdTitle) throws DVDLibraryDaoException{
+        int[] date = view.getDVDUpdateReleaseDate();
+        DVD dvd = dao.updateDVD(dvdTitle,date);
+        view.displayEditResult(dvd);
     }
 
     private void removeDVD() throws DVDLibraryDaoException {

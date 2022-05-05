@@ -104,4 +104,44 @@ public class DVDLibraryView {
         }
         io.readString("Please hit enter to continue");
     }
+
+    public void displayEditDVDBAnner() {
+        io.print("=== Update DVD details");
+    }
+
+    public void displayEditResult(DVD dvd) {
+        if (dvd != null){
+            io.print("DVD successfully updated");
+        } else {
+            io.print("No such DVD");
+        }
+        io.readString("Please hit enter to continue");
+    }
+
+    public int getDVDUpdateChoice() {
+        io.print("1. Update release date");
+        io.print("2. Update MPAA rating");
+        io.print("3. Update director");
+        io.print("4. Update studio");
+        io.print("5. Update user rating");
+        io.print("6. Exit");
+
+        return io.readInt("Please select from the above choices", 1, 6);
+    }
+
+    public String getDVDUpdateValue() {
+        return io.readString("Enter in updated value");
+    }
+
+    public void displayEditCancelledBanner() {
+        io.print("=== DVD Update cancelled");
+    }
+
+    public int[] getDVDUpdateReleaseDate() {
+        int[] i = new int[3];
+        i[0] = io.readInt("Enter year.");
+        i[1] = io.readInt("Enter month.");
+        i[2] = io.readInt("Enter day.");
+        return i;
+    }
 }
